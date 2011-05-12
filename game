@@ -1,0 +1,79 @@
+MAX=30;
+nick="";
+message="";
+CHAT=0;
+while [ "`mysql -u dge -p'dge' dge -Bs -e"select Participant from GT1 where Participant=\\"$nick\\";"`" ] || [ -z "$nick" ]
+do
+  echo "Enter a nick"
+  read nick
+done
+echo "Choose A or B. The payoff matrix for you and your opponent is as follows:"
+cat<<Payoff
+_____________________
+You |   A   |   B   | <-- Your opponent
+====================|
+  A | 10,10 |  0,15 |
+----|-------|-------|
+  B | 15, 0 |  5, 5 |
+---------------------
+ 
+Payoff
+i=0;
+mysql -u dge -p'dge' dge -Bs -e"insert into GT1(Participant,FakeName,Played) value (\"$nick\",concat(\"User\",\"$nick\"),1);";
+c=0;
+while [ $i -lt $MAX ] || [ $c -lt 1 ]
+do
+ch='x';
+if [ $i -eq $MAX ] #Start the next game
+then
+  i=0;
+  c=1;
+  Total=`mysql -u dge -p'dge' dge -Bs -e"select Score from GT1 where Participant=\"$nick\";"`;
+  echo " ";
+  mysql -u dge -p'dge' dge -Bs -e"update GT1 set Matched=0 where Participant=\"$nick\";";
+  echo "Your score is $Total and now you played against $Opp";echo " ";
+fi
+while ( [ $ch != 'A' ] && [ $ch != 'B' ] )
+do
+  echo "Enter choice (A/B):"
+  read ch
+  if [ -z "$ch" ]
+  then
+    ch='x';
+  fi
+  if [ $CHAT -eq 1 ]
+  then
+    echo "Enter Message:"
+    read message
+  fi
+done
+
+mysql -u dge -p'dge' dge -Bs -e"update GT1 set Choice=\"$ch\",Message=\"$message\",Played=0 where Participant=\"$nick\";";
+echo -n "Waiting"
+while [ `mysql -u dge -p'dge' dge -Bs -e"select Played from GT1 where Participant=\"$nick\"; "` -eq 0 ]
+do
+  echo -n ".";
+  sleep 4;
+done
+echo " ";
+f=`mysql -u dge -p'dge' dge -Bs -e"select o.FakeName,o.Choice,o.Message from GT1 p, GT1 o where o.FakeName=p.Opponent and p.Participant=\"$nick\";"`;
+Opp=`echo $f|cut -d' ' -f1`;
+Och=`echo $f|cut -d' ' -f2`;
+echo "You opponent $Opp chose $Och";
+
+if [ $CHAT -eq 1 ]
+then
+  Omsg=`echo $f|cut -d' ' -f3-`;
+  echo "$Opp says \"$Omsg\"";
+fi
+score=`grep $ch$Och payoff |cut -d':' -f2`;
+echo "You scored $score";
+mysql -u dge -p'dge' dge -Bs -e"update GT1 set Score=Score+$score where Participant=\"$nick\";";
+i=`mysql -u dge -p'dge' dge -Bs -e"select Matched from GT1 where Participant=\"$nick\";"`;
+done
+
+Total=`mysql -u dge -p'dge' dge -Bs -e"select Score from GT1 where Participant=\"$nick\";"`;
+echo " ";
+mysql -u dge -p'dge' dge -Bs -e"update GT1 set Matched=0 where Participant=\"$nick\";";
+echo "Your total score is $Total and now you played against $Opp";echo " ";
+

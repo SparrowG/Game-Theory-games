@@ -1,0 +1,25 @@
+while true
+do
+p1='';
+p2='';
+p1=`mysql -u dge -p'dge' dge -Bs -e"select FakeName from GT1 where Played=0 and Matched=0 limit 1;"`;
+#mysql -u dge -p'dge' dge -Bs -e"update GT1 set Played=1 where FakeName=\"$p1\";";
+p2=`mysql -u dge -p'dge' dge -Bs -e"select FakeName from GT1 where Played=0 and Matched=0 and Fakename!=\"$p1\" and Opponent!=\"$p1\" limit 1;"`;
+
+
+
+if [ "$p1" ] && [ "$p2" ]
+then
+  mysql -u dge -p'dge' dge -Bs -e"update GT1 set Opponent=\"$p2\",Played=1,Matched=Matched+1 where FakeName=\"$p1\";";
+  mysql -u dge -p'dge' dge -Bs -e"update GT1 set Opponent=\"$p1\",Played=1,Matched=Matched+1 where FakeName=\"$p2\";";
+  echo "Matching up $p1 and $p2";
+fi
+
+p1=`mysql -u dge -p'dge' dge -Bs -e"select a.FakeName from GT1 a, GT1 b where a.Played=0 and b.Played=0 and a.Opponent=b.FakeName and a.Matched!=0 and b.Matched!=0 limit 1;"`;
+if [ "$p1" ]
+then
+  echo "`date +"%T"` Updating for $p1";
+  mysql -u dge -p'dge' dge -Bs -e"update GT1 set Played=1,Matched=Matched+1 where FakeName=\"$p1\" or Opponent=\"$p1\";";
+fi
+
+done

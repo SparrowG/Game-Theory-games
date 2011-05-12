@@ -1,0 +1,36 @@
++-------------+-----------------+--------+-------+-----------------+---------+--------+---------+
+| Participant | FakeName        | Choice | Score | Opponent        | Matched | Played | Message |
++-------------+-----------------+--------+-------+-----------------+---------+--------+---------+
+| jsm         | Userjsm         | B      |    45 | Usersujay       |       7 |      0 |         |
+| sujay       | Usersujay       | B      |    30 | Userjsm         |       7 |      1 |         |
+| yupo        | Useryupo        | A      |   155 | Usernash        |      16 |      1 |         |
+| nash        | Usernash        | A      |   145 | Useryupo        |      16 |      1 |         |
+| amrite      | Useramrite      | A      |    60 | Usershraaz      |       9 |      1 |         |
+| shraaz      | Usershraaz      | A      |    50 | Useramrite      |       9 |      0 |         |
+| pintu       | Userpintu       | A      |   100 | Userasd         |      10 |      0 |         |
+| asd         | Userasd         | A      |   100 | Userpintu       |      10 |      1 |         |
+| sangy       | Usersangy       | B      |    85 | UserGV          |      13 |      1 |         |
+| GV          | UserGV          | B      |   135 | Usersangy       |      13 |      1 |         |
+| shashank    | Usershashank    | B      |    90 | Usereuler       |      20 |      1 |         |
+| euler       | Usereuler       | B      |   120 | Usershashank    |      20 |      0 |         |
+| shash       | Usershash       | A      |   150 | Userchi         |      16 |      1 |         |
+| chi         | Userchi         | A      |   140 | Usershash       |      16 |      1 |         |
+| srklu       | Usersrklu       | A      |   140 | Userprashanth   |      14 |      1 |         |
+| prashanth   | Userprashanth   | A      |   140 | Usersrklu       |      14 |      1 |         |
+| sheryl      | Usersheryl      | A      |   115 | Userqwe123      |      14 |      1 |         |
+| qwe123      | Userqwe123      | B      |    85 | Usersheryl      |      14 |      0 |         |
+| dhivya      | Userdhivya      | A      |   150 | Userjohnnash007 |      13 |      1 |         |
+| ask         | Userask         | B      |    35 | UserZzAK        |       8 |      0 |         |
+| johnnash007 | Userjohnnash007 | A      |   115 | Userdhivya      |      13 |      0 |         |
+| ju          | Userju          | B      |    90 | UserOG_911      |      18 |      1 |         |
+| OG_911      | UserOG_911      | B      |    85 | Userju          |      18 |      1 |         |
+| PUNCUDGE    | UserPUNCUDGE    | B      |    65 | Userkarthik1    |       7 |      0 |         |
+| karthik1    | Userkarthik1    | A      |    20 | UserPUNCUDGE    |       7 |      1 |         |
+| ananthaks   | Userananthaks   | A      |   120 | Userpranav      |      12 |      0 |         |
+| pranav      | Userpranav      | A      |   110 | Userananthaks   |      12 |      1 |         |
+| ZzAK        | UserZzAK        | B      |    50 | Userask         |       8 |      1 |         |
+| goorGH      | UsergoorGH      | NULL   |     0 |                 |       0 |      1 | NULL    |
+| nuuuu       | Usernuuuu       | NULL   |     0 |                 |       0 |      1 | NULL    |
+| spoo>RR     | Userspoo>RR     | NULL   |     0 |                 |       0 |      1 | NULL    |
++-------------+-----------------+--------+-------+-----------------+---------+--------+---------+
+
